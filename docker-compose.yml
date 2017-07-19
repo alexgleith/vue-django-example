@@ -1,0 +1,16 @@
+version: "2"
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '80:8000'
+    command: python manage.py runserver 0.0.0.0:8000
+  node:
+    build:
+      context: .
+      dockerfile: DockerfileNode
+    ports:
+      - '8080:8080'
+    command: npm run dev

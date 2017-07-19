@@ -1,0 +1,10 @@
+from node
+
+ENV APPDIR=/code
+WORKDIR $APPDIR	
+
+# Install Node
+ADD package.json $APPDIR/
+RUN npm install
+
+ADD . /code
