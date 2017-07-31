@@ -26,7 +26,7 @@ make setup-django
 ```
 
 
-TODO:
+### TODO
 
  * Set up PostGIS
  * Put together a production deployment process
