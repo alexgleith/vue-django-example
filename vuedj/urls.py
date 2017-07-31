@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from rest_framework import routers
 from app import views
+from django.contrib import admin
+
 
 router = routers.SimpleRouter()
 router.register(r'todos', views.TodoViewSet)
@@ -23,4 +25,5 @@ router.register(r'todos', views.TodoViewSet)
 urlpatterns = [
     url(r'^$', views.index, name='home'),
     url(r'^', include(router.urls)),
+    url(r'^admin/', admin.site.urls)
 ]

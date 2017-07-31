@@ -6,6 +6,10 @@
       <i class="plus icon"></i>
       <input type:"text" v-model="newTodoText" v-on:keyup.enter="createTodo">
     </div>
+    <button class="ui blue button" v-on:click="createTodo">
+      <i class="icon plus circle"></i>
+      Add
+    </button>
     <button class="ui red button" v-on:click="clearTodos">
       <i class="icon minus circle"></i>
       Clear

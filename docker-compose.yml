@@ -4,13 +4,17 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - .:/code
     ports:
-      - '80:8000'
+      - '8000:8000'
     command: python manage.py runserver 0.0.0.0:8000
   node:
     build:
       context: .
       dockerfile: DockerfileNode
+    volumes:
+      - .:/code
     ports:
-      - '8080:8080'
-    command: npm run dev
+      - '80:8080'
+    command: bash -c "npm install && npm run dev"
