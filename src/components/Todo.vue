@@ -20,10 +20,7 @@ export default {
   props: ['todo'],
   methods: {
     deleteTodo (todo) {
-      console.log('delete called for todo:')
-      console.log(todo.id)
       this.$store.dispatch('deleteTodo', todo)
-      // this.$store.dispatch('clearTodos')
     }
   }
 }

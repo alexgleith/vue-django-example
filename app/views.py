@@ -16,9 +16,6 @@ class TodoViewSet(viewsets.ModelViewSet):
     serializer_class = TodoSerializer
     lookup_field = 'id'
 
-    def get_queryset(self):
-        return self.queryset(id)
-
     @list_route(methods=['delete'])
     def clear_todos(self, request):
         todos = Todo.objects.all()
