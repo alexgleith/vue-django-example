@@ -5,26 +5,33 @@
 ## Build Setup
 
 ``` bash
-# install dependencies
-npm install
+# Build the Docker images
+make build
 
-# serve with hot reload at localhost:8080
-npm run dev
+# Run local dev
+make run
 
-# build for production with minification
-npm run build
+# Get node command line
+make cmd
 
-# run unit tests
-npm run unit
+# Migrate the DB
+make makemigrations
+make migrate
 
-# run e2e tests
-npm run e2e
+# Get an interactive DB shell
+make get-db
 
-# run all tests
-npm test
-
-# deploy
-.deploy.sh
+# Set up a super-user on Django
+make setup-django
 ```
+
+
+TODO:
+
+ * Set up PostGIS
+ * Put together a production deployment process
+
+
+## Previous notes
 
 For detailed explanation on how things work, checkout the [guide](https://github.com/vuejs-templates/webpack#vue-webpack-boilerplate) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

@@ -4,8 +4,7 @@ run:
 cmd:
 	docker-compose exec node bash
 
-bld:
-	# Nothing
+build:
 	docker-compose build
 
 clean:
