@@ -30,6 +30,7 @@ TODO:
 
  * Set up PostGIS
  * Put together a production deployment process
+ * Set up a [second docker-compose](https://docs.docker.com/compose/extends/) and Dockerfiles to run a production build locally
 
 
 ## Previous notes
