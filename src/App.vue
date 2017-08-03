@@ -1,6 +1,6 @@
 // src/App.vue
 
-<template>  
+<template>
   <style type="text/css">
     body {
       background-color: #DADADA;
@@ -15,7 +15,7 @@
       max-width: 800px;
     }
   </style>
-  <div id="app" class="ui middle aligned center aligned grid">
+  <div id="app" class="ui center aligned grid">
     <div class="column">
       <h2 class="ui charcoal header">Todo List</h2>
       <div class="ui large column">

@@ -1,20 +1,21 @@
 // src/components/Todo.vue
 
 <template>
-  <div class="card">
+  <div class="ui card">
     <div class="content">
-        <div class="right floated meta">
-            <button class="ui red button mini" v-on:click="deleteTodo(todo)">
-              <i class="icon minus circle centre"></i>
-            </button>
-        </div>
+      <div class="header">Todo</div>
         <div v-if="todo.editing">
-          <input type:"text" v-model="todo.text" v-on:keyup.enter="updateTodo(todo)">
+          <div class="ui input">
+            <input type:"text" v-model="todo.text" v-on:keyup.enter="updateTodo(todo)">
+          </div>
         </div>
-        <div v-else v-on:click="toggleEditing(todo)">
+        <div class="description" v-else v-on:click="toggleEditing(todo)">
           {{ todo.text }}
         </div>
     </div>
+      <div class="ui bottom attached button red"v-on:click="deleteTodo(todo)">
+        <i class="icon minus circle"></i>
+      </div>
   </div>
 </template>
 
