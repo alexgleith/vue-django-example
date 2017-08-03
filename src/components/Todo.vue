@@ -8,8 +8,11 @@
               <i class="icon minus circle centre"></i>
             </button>
         </div>
-        <div>
-            {{ todo.text }}
+        <div v-if="todo.editing">
+          <input type:"text" v-model="todo.text" v-on:keyup.enter="updateTodo(todo)">
+        </div>
+        <div v-else v-on:click="toggleEditing(todo)">
+          {{ todo.text }}
         </div>
     </div>
   </div>
@@ -21,6 +24,13 @@ export default {
   methods: {
     deleteTodo (todo) {
       this.$store.dispatch('deleteTodo', todo)
+    },
+    toggleEditing (todo) {
+      todo.editing = true
+    },
+    updateTodo (todo) {
+      this.$store.dispatch('updateTodo', todo)
+      todo.editing = false
     }
   }
 }

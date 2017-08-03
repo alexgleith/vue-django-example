@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api from './api.js'
+import _ from 'underscore'
 
 Vue.use(Vuex)
 const apiRoot = 'http://localhost:8000'  // This will change if you deploy later
@@ -16,7 +17,13 @@ const store = new Vuex.Store({
     // returned by the Promise.
     // The mutations are in charge of updating the client state.
     'GET_TODOS': function (state, response) {
-      state.todos = response.body
+      var todos = []
+      var data = response.body
+      _.each(data, function (todo) {
+        todo.editing = false
+        todos.push(todo)
+      })
+      state.todos = todos
     },
     'ADD_TODO': function (state, response) {
       state.todos.push(response.body)
@@ -45,6 +52,10 @@ const store = new Vuex.Store({
     addTodo (store, todo) {
       return api.post(apiRoot + '/todos/', todo)
         .then((response) => store.commit('ADD_TODO', response))
+        .catch((error) => store.commit('API_FAIL', error))
+    },
+    updateTodo (store, todo) {
+      return api.patch(apiRoot + '/todos/' + todo.id + '/', todo)
         .catch((error) => store.commit('API_FAIL', error))
     },
     deleteTodo (store, todo) {
