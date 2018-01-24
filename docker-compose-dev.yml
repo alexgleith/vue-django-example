@@ -1,0 +1,25 @@
+version: "2"
+services:
+  api:
+    volumes:
+      - ./app:/code/app
+      - ./vuedj:/code/vuedj
+      - ./manage.py:/code/manage.py
+    environment:
+      - AUTH_SERVER=https://staging.accounts.crcsi.com.au/o/oauth2
+      - PYTHONUNBUFFERED=0
+      - ENVIRONMENT=DEVELOPMENT
+    command: python3 manage.py runserver 0.0.0.0:8000
+  www:
+    build:
+      args:
+        ENVIRONMENT: "development"
+    environment:
+      - ENVIRONMENT=development
+    volumes:
+      - .:/code
+    ports:
+      - '80:8080'
+    depends_on:
+      - 'api'
+    command: bash -c "yarn install && npm run dev"

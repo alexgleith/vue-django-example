@@ -1,0 +1,26 @@
+version: "2"
+services:
+  www:
+    build:
+      context: .
+      dockerfile: ./DockerfileNodeNginx
+      args:
+        ENVIRONMENT: ""
+  api:
+    build:
+      context: .
+      dockerfile: ./DockerfileDjango
+    env_file: .dockerenv
+    environment:
+      POSTGRES_HOSTNAME: "db"
+      HOST: 'http://api.vcap.me'
+      PORT: '8000'
+    ports:
+      - '8000:8000'
+    depends_on:
+      - 'db'
+  db:
+    image: mdillon/postgis:9.6
+    env_file: .dockerenv
+    ports:
+      - '5432:5432'

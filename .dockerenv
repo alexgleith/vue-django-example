@@ -1,0 +1,3 @@
+POSTGRES_HOSTNAME=db
+POSTGRES_USER=esp
+POSTGRES_PASSWORD=developmentpassword
