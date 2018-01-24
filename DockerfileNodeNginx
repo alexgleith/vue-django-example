@@ -34,6 +34,7 @@ ARG ENVIRONMENT
 
 # Set up the files to build with
 ADD build $APPDIR/build
+ADD config $APPDIR/config
 ADD static $APPDIR/static
 ADD .eslintrc.js $APPDIR/
 
