@@ -1,27 +1,77 @@
+PROD=-f docker-compose-base.yml -f docker-compose-prod.yml
+DEV=-f docker-compose-base.yml -f docker-compose-dev.yml
+
+# Running things
 run:
-	docker-compose up
+	docker-compose $(DEV) up
 
-cmd:
-	docker-compose exec node bash
+run-prod:
+	docker-compose $(PROD) up
 
-build:
-	docker-compose build
+# Building things
+build-dev:
+	docker-compose $(DEV) build
 
+build-prod:
+	docker-compose $(PROD) build
+
+# Get rid of local folders that are built
 clean:
 	-rm -rf node_modules
-	-rm -rf .venv
 
+# Get rid of docker-compose containers
+docker-clean:
+	docker-compose $(DEV) rm --force
+
+
+# Get a command line for the node dev system
+# This is used to add packages, using `yarn add` and using `-D` for development only
+node-cmd:
+	docker-compose $(DEV) exec www bash
+
+django-cmd:
+	docker-compose $(DEV) exec api bash
+
+# Manage the Django database
 make-migrations:
-	docker-compose exec django python manage.py makemigrations
+	docker-compose $(DEV) exec api python3 manage.py makemigrations
 
 migrate:
-	docker-compose exec django python manage.py migrate
+	docker-compose $(DEV) exec api python3 manage.py migrate
 
 get-db:
-	docker-compose exec django python manage.py dbshell
+	docker-compose $(DEV) exec api python3 manage.py dbshell
 
-setup-django:
-	docker-compose exec django \
-	bash -c "echo \"from django.contrib.auth.models import User; \
-		User.objects.create_superuser('admin', 'admin@example.com', 'password')\" \
-		| python manage.py shell" 
+initialise-db: migrate load-test
+	docker-compose $(DEV) restart api
+
+load-test:
+	docker-compose $(DEV) exec api \
+		python3 manage.py load_test_data
+
+load-test-prod:
+	docker-compose $(PROD) exec api \
+		python3 manage.py load_test_data
+
+reset-db:
+	-docker-compose $(DEV) stop db
+	docker-compose $(DEV) rm --force db
+	docker-compose $(DEV) up -d db && sleep 10
+	make initialise-db
+
+# Careful, these push docker images.
+push-image-esp-www:
+	docker build \
+		--build-arg ENVIRONMENT=master \
+		--tag crcsi/esp-v2:latest \
+		--file DockerfileNodeNginx \
+		.
+	docker push crcsi/esp-v2:latest
+
+push-image-esp-api:
+	docker build \
+		--tag crcsi/esp-v2-django:latest \
+		--file DockerfileDjango \
+		.
+
+	docker push crcsi/esp-v2-django:latest
