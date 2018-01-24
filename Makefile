@@ -12,6 +12,10 @@ run-prod:
 build-dev:
 	docker-compose $(DEV) build
 
+# Building things
+build-vue:
+	docker-compose $(DEV) build www
+
 build-prod:
 	docker-compose $(PROD) build
 

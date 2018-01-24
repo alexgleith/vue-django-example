@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { sync } from 'vuex-router-sync'
 import App from './views/App'
 import router from './router'
 import store from './store'
@@ -6,20 +7,19 @@ import store from './store'
 // Bootstrap javascript components
 import 'bootstrap'
 
-// FONTS
-import 'font-awesome-webpack'
-
 // CSS
 import 'bootstrap/dist/css/bootstrap.css'
 import './css/main.css'
 
-Vue.config.productionTip = false
+// FONTS
+import 'font-awesome-webpack'
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
+sync(store, router)
+
+const app = new Vue({
   router,
   store,
-  components: { App },
-  template: '<App/>'
+  ...App
 })
+
+export { app, router, store }

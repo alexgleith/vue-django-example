@@ -4,13 +4,49 @@
 
 const path = require('path')
 
+// We need a way to inject build-time variables into the single page app.
+console.log("//------------------------//")
+console.log("Build environment is set to " + process.env.ENVIRONMENT)
+console.log("//------------------------//")
+
+// Start with some defaults for dev.
+const parameters = {
+  API_HOST: "http://localhost:8000",
+  WEB_HOST: "http://localhost"
+}
+
+if (process.env.ENVIRONMENT === 'localprod') {
+  // This is for testing the production build
+  parameters.API_HOST = "http://api.app.vcap.me"
+  parameters.WEB_HOST = "http://www.app.vcap.me"
+} else if (process.env.ENVIRONMENT === 'develop') {
+  // This is the staging environment, build from the 'develop' branch
+  parameters.API_HOST = "https://api.app.staging.example.com"
+  parameters.WEB_HOST = "https://www.app.staging.example.com"
+  parameters.AUTH_HOST = "https://staging.accounts.crcsi.com.au"
+} else if (process.env.ENVIRONMENT === 'master') {
+  // This is the production environment, the branch is 'master'
+  parameters.API_HOST = "https://api.app.example.com"
+  parameters.WEB_HOST = "https://www.app.example.com"
+} else if (process.env.ENVIRONMENT === 'development') {
+  // This is the local development environment. We're happy to go with defaults.
+} else {
+  // Something went wrong...
+  console.log("UNKNOWN ENVIRONMENT")
+}
+
 module.exports = {
+  parameters: parameters,
   dev: {
 
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {},
+
+    // Custom settings
+    API_HOST: "http://localhost:8000",
+    WEB_HOST: "http://localhost",
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

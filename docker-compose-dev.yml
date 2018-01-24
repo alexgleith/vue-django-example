@@ -15,6 +15,7 @@ services:
         ENVIRONMENT: "development"
     environment:
       - ENVIRONMENT=development
+      - HOST=0.0.0.0
     volumes:
       - .:/code
     ports:

@@ -18,7 +18,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
       extract: true,
-      usePostCSS: true
+      usePostCSS: false
     })
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
@@ -30,7 +30,10 @@ const webpackConfig = merge(baseWebpackConfig, {
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
-      'process.env': env
+      'process.env': env,
+      'process.env.ENVIRONMENT': JSON.stringify(process.env.ENVIRONMENT),
+      'process.env.API_HOST': JSON.stringify(config.parameters.API_HOST),
+      'process.env.WEB_HOST': JSON.stringify(config.parameters.WEB_HOST)
     }),
     new UglifyJsPlugin({
       uglifyOptions: {
@@ -48,7 +51,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
       // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`, 
       // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
-      allChunks: true,
+      allChunks: true
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
@@ -62,7 +65,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: config.build.index,
-      template: 'index.html',
+      template: path.resolve(__dirname, 'index.html'),
       inject: true,
       minify: {
         removeComments: true,
