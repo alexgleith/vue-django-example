@@ -26,12 +26,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.css', '.json'],
     alias: {
       root: path.join(__dirname, '../client'),
-      components: path.join(__dirname, '../client/components'),
-      'mapbox-gl': path.resolve(__dirname, '../node_modules/mapbox-gl/dist/mapbox-gl.js'),
-      'mapbox-gl.css': path.resolve(__dirname, '../node_modules/mapbox-gl/dist/mapbox-gl.css'),
-      'mapbox-gl-draw.css': path.resolve(__dirname, '../node_modules/@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'),
-      'mapbox-gl-draw': path.resolve(__dirname, '../node_modules/@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.js'),
-      'turf-polygon-slice': path.resolve(__dirname, '../src/turf-polygon-slice/index.js'),
+      components: path.join(__dirname, '../client/components')
     },
     modules: [
       _.cwd('node_modules'),
@@ -87,7 +82,7 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
-      Popper: ['popper.js', 'default'],
+      Popper: ['popper.js', 'default']
     })
   ],
   target: _.target

@@ -39,14 +39,14 @@
     "ie > 8"
   ],
   "dependencies": {
-    "babel-polyfill": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.18.0",
     "bootstrap": "^4.0.0",
     "font-awesome": "^4.7.0",
     "font-awesome-webpack": "^0.0.5-beta.2",
     "jquery": "^3.2.1",
     "less": "^2.7.2",
-    "popper.js": "^1.11.1",
+    "popper.js": "^1.13.0",
     "promise-polyfill": "^6.0.2",
     "underscore": "^1.8.3",
     "url-loader": "^0.5.9",

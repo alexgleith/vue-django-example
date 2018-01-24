@@ -30,7 +30,7 @@ base.plugins.push(
     'process.env.NODE_ENV': '"production"',
     'process.env.ENVIRONMENT': JSON.stringify(process.env.ENVIRONMENT),
     'process.env.API_HOST': JSON.stringify(config.parameters.API_HOST),
-    'process.env.WEB_HOST': JSON.stringify(config.parameters.WEB_HOST),
+    'process.env.WEB_HOST': JSON.stringify(config.parameters.WEB_HOST)
   }),
   new webpack.optimize.UglifyJsPlugin({
     sourceMap: true,
@@ -45,12 +45,13 @@ base.plugins.push(
   // extract vendor chunks
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
-    minChunks: module => {
-      return module.resource && /\.(js|css|es6)$/.test(module.resource) && module.resource.indexOf('node_modules') !== -1
+    minChunks: function (module) {
+      return module.context && module.context.includes('node_modules')
     }
   }),
   new webpack.optimize.CommonsChunkPlugin({
-    name: 'manifest'
+    name: 'manifest',
+    minChunks: Infinity
   })
   // progressive web app
   // it uses the publicPath in webpack config

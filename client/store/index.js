@@ -6,7 +6,7 @@ import api from './api.js'
 import _ from 'underscore'
 
 Vue.use(Vuex)
-const apiRoot = 'http://localhost:8000'  // This will change if you deploy later
+const apiRoot = process.env.API_HOST + '/v1'
 
 const store = new Vuex.Store({
   state: {

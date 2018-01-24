@@ -45,33 +45,9 @@ get-db:
 initialise-db: migrate load-test
 	docker-compose $(DEV) restart api
 
-load-test:
-	docker-compose $(DEV) exec api \
-		python3 manage.py load_test_data
-
-load-test-prod:
-	docker-compose $(PROD) exec api \
-		python3 manage.py load_test_data
-
 reset-db:
 	-docker-compose $(DEV) stop db
 	docker-compose $(DEV) rm --force db
 	docker-compose $(DEV) up -d db && sleep 10
 	make initialise-db
 
-# Careful, these push docker images.
-push-image-esp-www:
-	docker build \
-		--build-arg ENVIRONMENT=master \
-		--tag crcsi/esp-v2:latest \
-		--file DockerfileNodeNginx \
-		.
-	docker push crcsi/esp-v2:latest
-
-push-image-esp-api:
-	docker build \
-		--tag crcsi/esp-v2-django:latest \
-		--file DockerfileDjango \
-		.
-
-	docker push crcsi/esp-v2-django:latest

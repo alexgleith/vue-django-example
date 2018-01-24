@@ -16,14 +16,42 @@ Including another URLconf
 from django.conf.urls import url, include
 from rest_framework import routers
 from app import views
+from django.views.generic import RedirectView
 from django.contrib import admin
+from django.http import HttpResponse
+from django.conf.urls.static import static
+from django.conf import settings
+
+router = routers.DefaultRouter()
 
 
-router = routers.SimpleRouter()
+def handler404(request):
+    return HttpResponse('404 Page not found', status=404)
+
+
+def handler500(request):
+    return HttpResponse('500 Internal server error', status=500)
+
+
+router = routers.DefaultRouter()
 router.register(r'todos', views.TodoViewSet)
 
 urlpatterns = [
-    url(r'^$', views.index, name='home'),
-    url(r'^', include(router.urls)),
+    # Error handlers
+    url(r'^404/$', handler404),
+    url(r'^500/$', handler500),
+
+    # Regular API routes at v1, so we can change to v2 in the future
+    url('^v1/', include(router.urls)),
+
+    url(r'^$', RedirectView.as_view(url='/v1/')),
     url(r'^admin/', admin.site.urls)
 ]
+
+# Login and logout views for the browsable API
+urlpatterns += [
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
+]
+# Serve static files in prod. Not recommended, but we really don't need them
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

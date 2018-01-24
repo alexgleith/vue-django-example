@@ -5,9 +5,8 @@ services:
   api:
     environment:
       - ENVIRONMENT=PRODUCTION
-      - HOST=www.espv2.vcap.me
+      - HOST=www.app.vcap.me
       - PORT=8000
-      - AUTH_SERVER=https://accounts.crcsi.com.au/o/oauth2
     depends_on:
       - 'db'
     ports:
@@ -20,14 +19,14 @@ services:
       args:
         ENVIRONMENT: "localprod"
     environment:
-      - VIRTUAL_HOST=www.espv2.vcap.me
+      - VIRTUAL_HOST=www.app.vcap.me
 
   api-nginx:
     build:
       context: .
       dockerfile: ./DockerfileDjangoNginx
     environment:
-      - VIRTUAL_HOST=api.espv2.vcap.me
+      - VIRTUAL_HOST=api.app.vcap.me
     depends_on:
       - 'api'
     volumes:

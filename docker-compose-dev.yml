@@ -6,7 +6,6 @@ services:
       - ./vuedj:/code/vuedj
       - ./manage.py:/code/manage.py
     environment:
-      - AUTH_SERVER=https://staging.accounts.crcsi.com.au/o/oauth2
       - PYTHONUNBUFFERED=0
       - ENVIRONMENT=DEVELOPMENT
     command: python3 manage.py runserver 0.0.0.0:8000
