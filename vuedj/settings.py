@@ -84,13 +84,22 @@ WSGI_APPLICATION = 'vuedj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+db_user = os.environ.get('POSTGRES_USER', 'postgres')
+db_pass = os.environ.get('POSTGRES_PASSWORD', 'password')
+db_name = os.environ.get('POSTGRES_DATABASE', db_user)
+db_host = os.environ.get('POSTGRES_HOSTNAME', 'localhost')
+db_port = os.environ.get('POSTGRES_PORT', '5432')
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': db_name,
+        'USER': db_user,
+        'PASSWORD': db_pass,
+        'HOST': db_host,
+        'PORT': db_port,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
