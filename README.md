@@ -2,6 +2,8 @@
 
 > A Django - Vue.js project
 
+Please note that as of 2019, this is quite out of date!
+
 ## Build Setup
 
 ``` bash
