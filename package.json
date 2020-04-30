@@ -15,7 +15,7 @@
     "eslint-plugin-html": "^4.0.1",
     "font-awesome": "^4.7.0",
     "font-awesome-webpack": "^0.0.5-beta.2",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "less": "^2.7.3",
     "popper.js": "^1.12.9",
     "underscore": "^1.8.3",
