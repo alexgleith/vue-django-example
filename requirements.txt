@@ -1,4 +1,4 @@
-Django==1.11.3
+Django==1.11.29
 django-cors-headers==2.1.0
 djangorestframework==3.6.3
 pytz==2017.2
